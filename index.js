@@ -7,11 +7,27 @@ const speech = require("@google-cloud/speech");
 const ffmpeg = require("fluent-ffmpeg");
 
 const client = new speech.SpeechClient();
+const PROTOCOL = "http://";
+const SERVER_HOST = process.env.HOST || "localhost";
+const SERVER_PORT = process.env.PORT || 3000;
+const API_HOST = process.env.API_HOST || "localhost";
+const API_PORT = process.env.API_PORT || 8080;
 
 const init = async () => {
+ 
+  // const port = process.env.PORT || 5000;
+  // app.listen(port, () => {
+  //   console.log("Server listening on port " + port);
+  // });
   const server = Hapi.server({
-    port: 3005,
-    host: "localhost",
+    port: process.env.PORT || 3005,
+    host: process.env.HOST || "localhost",
+    // labels: ["api"],
+    routes: {
+       cors: {
+        origin: [PROTOCOL + API_HOST + ':' + API_PORT]
+       }
+     }
   });
 server.route({method:'GET',path:'/',config:{handler:async(req,res)=>{
  return new Promise((resolve) => {
