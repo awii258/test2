@@ -20,7 +20,7 @@ const init = async () => {
   //   console.log("Server listening on port " + port);
   // });
   const server = Hapi.server({
-    port: process.env.PORT || 3005,
+    port: process.env.PORT || 5000,
     host: process.env.HOST || "localhost",
     // labels: ["api"],
     routes: {
